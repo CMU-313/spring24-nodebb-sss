@@ -73,6 +73,8 @@ get:
                           type: number
                         bookmarks:
                           type: number
+                        pins:
+                          type: number
                         deleterUid:
                           type: number
                         edited:

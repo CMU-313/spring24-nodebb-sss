@@ -85,6 +85,18 @@
     </li>
     {{{ end }}}
 
+    {{{ if config.loggedIn }}}
+    <li>
+        <a component="post/pin" role="menuitem" tabindex="-1" href="#" data-pinned="{posts.pinned}">
+            <span class="menu-icon">
+                <i component="post/pin/on" class="fa fa-fw fa-thumb-tack <!-- IF !posts.pinned -->hidden<!-- ENDIF !posts.pinned -->"></i>
+                <i component="post/pin/off" class="fa fa-fw fa-thumb-tack fa-rotate-90 <!-- IF posts.pinned -->hidden<!-- ENDIF posts.pinned -->"></i>
+            </span>
+            <span class="pin-text">[[topic:Pin]]</span>&nbsp;
+        </a>
+    </li>
+    {{{ end }}}
+
     <li>
         <a role="menuitem" tabindex="-1" href="#" data-clipboard-text="{posts.absolute_url}">
             <i class="fa fa-fw fa-link"></i> [[topic:copy-permalink]]

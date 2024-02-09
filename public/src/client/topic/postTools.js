@@ -364,6 +364,19 @@ define('forum/topic/postTools', [
         return false;
     }
 
+    function pinPost(button, pid) {
+        const method = button.attr('data-pinned') === 'false' ? 'put' : 'del';
+
+        api[method](`/posts/${pid}/pin`, undefined, function (err) {
+            if (err) {
+                return alerts.error(err);
+            }
+            const type = method === 'put' ? 'pin' : 'unpin';
+            hooks.fire(`action:post.${type}`, { pid: pid });
+        });
+        return false;
+    }
+
     function getData(button, data) {
         return button.parents('[data-pid]').attr(data);
     }
