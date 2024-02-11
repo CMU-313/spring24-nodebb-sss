@@ -1,6 +1,7 @@
 
 'use strict';
 
+const assert = require('assert');
 
 define('forum/topic/events', [
     'forum/topic/postTools',
@@ -39,6 +40,9 @@ define('forum/topic/events', [
 
         'posts.bookmark': togglePostBookmark,
         'posts.unbookmark': togglePostBookmark,
+
+        'posts.pin': togglePostPin,
+        'posts.unpin': togglePostPin,
 
         'posts.upvote': togglePostVote,
         'posts.downvote': togglePostVote,
@@ -82,6 +86,28 @@ define('forum/topic/events', [
         $('[data-pid="' + data.post.pid + '"] .bookmarkCount').filter(function (index, el) {
             return parseInt($(el).closest('[data-pid]').attr('data-pid'), 10) === parseInt(data.post.pid, 10);
         }).html(data.post.bookmarks).attr('data-bookmarks', data.post.bookmarks);
+    }
+
+    function togglePostPin(data) {
+        // Assert that data is an object
+        assert(typeof data === 'object', 'Expected `data` to be an object');
+        // Assert that data.post is an object
+        assert(typeof data.post === 'object', 'Expected `data.post` to be an object');
+        // Assert that data.post.pid is a string or number
+        assert(typeof data.post.pid === 'string' || typeof data.post.pid === 'number', 'Expected `data.post.pid` to be a string or number');
+        // Assert that data.isPinned is a boolean
+        assert(typeof data.isPinned === 'boolean', 'Expected `data.isPinned` to be a boolean');
+        const el = $('[data-pid="' + data.post.pid + '"] [component="post/pin"]').filter(function (index, el) {
+            return parseInt($(el).closest('[data-pid]').attr('data-pid'), 10) === parseInt(data.post.pid, 10);
+        });
+        if (!el.length) {
+            return;
+        }
+
+        el.attr('data-pinned', data.isPinned);
+
+        el.find('[component="post/pin/on"]').toggleClass('hidden', !data.isPinned);
+        el.find('[component="post/pin/off"]').toggleClass('hidden', data.isPinned);
     }
 
     function onTopicPurged(data) {

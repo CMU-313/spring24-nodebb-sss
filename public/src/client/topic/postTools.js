@@ -1,5 +1,6 @@
 'use strict';
 
+const assert = require('assert');
 
 define('forum/topic/postTools', [
     'share',
@@ -64,7 +65,7 @@ define('forum/topic/postTools', [
     PostTools.toggle = function (pid, isDeleted) {
         const postEl = components.get('post', 'pid', pid);
 
-        postEl.find('[component="post/quote"], [component="post/bookmark"], [component="post/reply"], [component="post/flag"], [component="user/chat"]')
+        postEl.find('[component="post/quote"], [component="post/bookmark"], [component="post/pin"], [component="post/reply"], [component="post/flag"], [component="user/chat"]')
             .toggleClass('hidden', isDeleted);
 
         postEl.find('[component="post/delete"]').toggleClass('hidden', isDeleted).parent().attr('hidden', isDeleted ? '' : null);
@@ -114,6 +115,16 @@ define('forum/topic/postTools', [
 
         postContainer.on('click', '[component="post/bookmark"]', function () {
             return bookmarkPost($(this), getData($(this), 'data-pid'));
+        });
+
+        // Assert that postContainer is a jQuery object
+        assert(postContainer instanceof jQuery, 'postContainer must be a jQuery object');
+        postContainer.on('click', '[component="post/pin"]', function () {
+            // Assuming getData is defined elsewhere and retrieves a data attribute value from a jQuery element
+            const pid = getData($(this), 'data-pid');
+            // Assert that pid is a string or number, if getData's behavior is well-defined and consistent
+            assert(typeof pid === 'number', 'Expected data-pid to be a number');
+            return pinPost($(this), getData($(this), 'data-pid'));
         });
 
         postContainer.on('click', '[component="post/upvote"]', function () {
@@ -359,6 +370,28 @@ define('forum/topic/postTools', [
                 return alerts.error(err);
             }
             const type = method === 'put' ? 'bookmark' : 'unbookmark';
+            hooks.fire(`action:post.${type}`, { pid: pid });
+        });
+        return false;
+    }
+
+    /**
+     * Toggles the pin state of a post.
+     * @param {JQuery} button - The jQuery object representing the button clicked to pin/unpin a post.
+     * @param {number} pid - The post ID to be pinned or unpinned.
+     * @returns {boolean} Always returns false to prevent default action for a button click.
+     */
+    function pinPost(button, pid) {
+        // Assert parameter types
+        assert(button instanceof jQuery, 'button must be a jQuery object');
+        assert(typeof pid === 'number', 'pid must be a number');
+        const method = button.attr('data-pinned') === 'false' ? 'put' : 'del';
+
+        api[method](`/posts/${pid}/pin`, undefined, function (err) {
+            if (err) {
+                return alerts.error(err);
+            }
+            const type = method === 'put' ? 'pin' : 'unpin';
             hooks.fire(`action:post.${type}`, { pid: pid });
         });
         return false;
