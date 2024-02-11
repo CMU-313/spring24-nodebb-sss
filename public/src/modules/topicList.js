@@ -3,11 +3,12 @@
 define('topicList', [
     'forum/infinitescroll',
     'handleBack',
+    'handleBackPin',
     'topicSelect',
     'categoryFilter',
     'forum/category/tools',
     'hooks',
-], function (infinitescroll, handleBack, topicSelect, categoryFilter, categoryTools, hooks) {
+], function (infinitescroll, handleBack, handleBackPin, topicSelect, categoryFilter, categoryTools, hooks) {
     const TopicList = {};
     let templateName = '';
 

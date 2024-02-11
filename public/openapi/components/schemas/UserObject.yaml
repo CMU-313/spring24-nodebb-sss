@@ -373,6 +373,8 @@ UserObjectFull:
           type: number
         bookmarks:
           type: number
+        pins:
+          type: number
         categoriesWatched:
           type: number
         downvoted:

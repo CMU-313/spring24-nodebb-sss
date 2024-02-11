@@ -15,6 +15,7 @@ export type TopicObjectCoreProperties = {
   ignored: boolean;
   unread: boolean;
   bookmark: number;
+  pin: number;
   unreplied: boolean;
   icons: string[];
 };
