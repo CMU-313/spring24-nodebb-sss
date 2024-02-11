@@ -23,6 +23,14 @@ const templateToData = {
             return `uid:${userData.uid}:bookmarks`;
         },
     },
+    'account/pins': {
+        type: 'posts',
+        noItemsFoundKey: '[[topic:pins.has_no_pins]]',
+        crumb: '[[user:pins]]',
+        getSets: function (callerUid, userData) {
+            return `uid:${userData.uid}:pins`;
+        },
+    },
     'account/posts': {
         type: 'posts',
         noItemsFoundKey: '[[user:has_no_posts]]',
@@ -140,6 +148,9 @@ const templateToData = {
 
 postsController.getBookmarks = async function (req, res, next) {
     await getPostsFromUserSet('account/bookmarks', req, res, next);
+};
+postsController.getPins = async function (req, res, next) {
+    await getPostsFromUserSet('account/pins', req, res, next);
 };
 
 postsController.getPosts = async function (req, res, next) {

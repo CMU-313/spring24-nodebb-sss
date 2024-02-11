@@ -278,6 +278,8 @@ get:
                     type: boolean
                   bookmark:
                     nullable: true
+                  pin:
+                    nullable: true
                   postSharing:
                     type: array
                     items:
@@ -357,6 +359,8 @@ get:
                   feeds:disableRSS:
                     type: number
                   bookmarkThreshold:
+                    type: number
+                  pinThreshold:
                     type: number
                   necroThreshold:
                     type: number

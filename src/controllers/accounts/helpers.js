@@ -164,6 +164,7 @@ async function getCounts(userData, callerUID) {
         promises.upvoted = db.sortedSetCard(`uid:${uid}:upvote`);
         promises.downvoted = db.sortedSetCard(`uid:${uid}:downvote`);
         promises.bookmarks = db.sortedSetCard(`uid:${uid}:bookmarks`);
+        promises.pins = db.sortedSetCard(`uid:${uid}:pins`);
         promises.uploaded = db.sortedSetCard(`uid:${uid}:uploads`);
         promises.categoriesWatched = user.getWatchedCategories(uid);
         promises.blocks = user.getUserField(userData.uid, 'blocksCount');
