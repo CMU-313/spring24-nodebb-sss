@@ -23,6 +23,7 @@ const templateToData = {
             return `uid:${userData.uid}:bookmarks`;
         },
     },
+
     'account/posts': {
         type: 'posts',
         noItemsFoundKey: '[[user:has_no_posts]]',

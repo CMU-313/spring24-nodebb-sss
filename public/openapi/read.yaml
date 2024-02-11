@@ -288,6 +288,8 @@ paths:
     $ref: 'read/user/userslug/groups.yaml'
   "/api/user/{userslug}/bookmarks":
     $ref: 'read/user/userslug/bookmarks.yaml'
+  "/api/user/{userslug}/pins":
+    $ref: 'read/user/userslug/pins.yaml'
   "/api/user/{userslug}/watched":
     $ref: 'read/user/userslug/watched.yaml'
   "/api/user/{userslug}/ignored":

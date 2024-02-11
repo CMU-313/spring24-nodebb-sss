@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const assert = require('assert');
 
 const db = require('../database');
 const topics = require('../topics');
@@ -75,6 +76,7 @@ module.exports = function (Posts) {
             deleteFromTopicUserNotification(postData),
             deleteFromCategoryRecentPosts(postData),
             deleteFromUsersBookmarks(pids),
+            deleteFromUsersPins(pids),
             deleteFromUsersVotes(pids),
             deleteFromReplies(postData),
             deleteFromGroups(pids),
@@ -161,6 +163,25 @@ module.exports = function (Posts) {
         });
         await db.sortedSetRemoveBulk(bulkRemove);
         await db.deleteAll(pids.map(pid => `pid:${pid}:users_bookmarked`));
+    }
+    /**
+     * Deletes pins from user sets and the associated pin sets for each provided post ID.
+     * @param {Array<number>} pids - An array of post IDs (as numbers)
+     * @returns {Promise<void>} - A promise that resolves when all deletions are complete with no return value.
+     */
+    async function deleteFromUsersPins(pids) {
+        const arrayOfUids = await db.getSetsMembers(pids.map(pid => `pid:${pid}:users_pinned`));
+        const bulkRemove = [];
+        assert(Array.isArray(pids), 'pids must be an array');
+        pids.forEach((pid, index) => {
+            assert(typeof pid === 'number', 'Each pid must be a number');
+            arrayOfUids[index].forEach((uid) => {
+                assert(typeof uid === 'number', 'Expected uid to be a number');
+                bulkRemove.push([`uid:${uid}:pins`, pid]);
+            });
+        });
+        await db.sortedSetRemoveBulk(bulkRemove);
+        await db.deleteAll(pids.map(pid => `pid:${pid}:users_pinned`));
     }
 
     async function deleteFromUsersVotes(pids) {

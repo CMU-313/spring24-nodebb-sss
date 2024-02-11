@@ -73,6 +73,8 @@ get:
                           type: number
                         bookmarks:
                           type: number
+                        pins:
+                          type: number
                         deleterUid:
                           type: number
                         edited:
@@ -275,6 +277,8 @@ get:
                   isIgnoring:
                     type: boolean
                   bookmark:
+                    nullable: true
+                  pin:
                     nullable: true
                   postSharing:
                     type: array

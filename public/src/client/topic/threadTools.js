@@ -5,12 +5,13 @@ define('forum/topic/threadTools', [
     'components',
     'translator',
     'handleBack',
+    'handleBackPin',
     'forum/topic/posts',
     'api',
     'hooks',
     'bootbox',
     'alerts',
-], function (components, translator, handleBack, posts, api, hooks, bootbox, alerts) {
+], function (components, translator, handleBack, handleBackPin, posts, api, hooks, bootbox, alerts) {
     const ThreadTools = {};
 
     ThreadTools.init = function (tid, topicContainer) {
@@ -79,6 +80,25 @@ define('forum/topic/threadTools', [
                     });
                 } else if (ajaxify.data.category) {
                     ajaxify.go('category/' + ajaxify.data.category.slug, handleBack.onBackClicked);
+                }
+
+                alerts.success('[[topic:mark_unread.success]]');
+            });
+            return false;
+        });
+
+        topicContainer.on('click', '[component="topic/mark-unread"]', function () {
+            socket.emit('topics.markUnread', tid, function (err) {
+                if (err) {
+                    return alerts.error(err);
+                }
+
+                if (app.previousUrl && !app.previousUrl.match('^/topic')) {
+                    ajaxify.go(app.previousUrl, function () {
+                        handleBackPin.onBackClicked(true);
+                    });
+                } else if (ajaxify.data.category) {
+                    ajaxify.go('category/' + ajaxify.data.category.slug, handleBackPin.onBackClicked);
                 }
 
                 alerts.success('[[topic:mark_unread.success]]');

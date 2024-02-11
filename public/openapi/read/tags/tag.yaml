@@ -209,6 +209,8 @@ get:
                           type: boolean
                         bookmark:
                           nullable: true
+                        pin:
+                          nullable: true
                         unreplied:
                           type: boolean
                         icons:

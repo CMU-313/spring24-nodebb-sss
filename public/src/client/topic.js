@@ -64,6 +64,7 @@ define('forum/topic', [
         addPostsPreviewHandler();
 
         handleBookmark(tid);
+        handlePin(tid);
 
         $(window).on('scroll', utils.debounce(updateTopicTitle, 250));
 
@@ -154,6 +155,42 @@ define('forum/topic', [
             });
             setTimeout(function () {
                 alerts.remove('bookmark');
+            }, 10000);
+        }
+    }
+
+    function handlePin(tid) {
+        if (window.location.hash) {
+            const el = $(utils.escapeHTML(window.location.hash));
+            if (el.length) {
+                return navigator.scrollToElement(el, true, 0);
+            }
+        }
+        const pin = ajaxify.data.pin || storage.getItem('topic:' + tid + ':pin');
+        const postIndex = ajaxify.data.postIndex;
+
+        if (postIndex > 1) {
+            if (components.get('post/anchor', postIndex - 1).length) {
+                return navigator.scrollToPostIndex(postIndex - 1, true, 0);
+            }
+        } else if (pin && (
+            !config.usePagination ||
+            (config.usePagination && ajaxify.data.pagination.currentPage === 1)
+        ) && ajaxify.data.postcount > ajaxify.data.pinThreshold) {
+            alerts.alert({
+                alert_id: 'pin',
+                message: '[[topic:pin_instructions]]',
+                timeout: 0,
+                type: 'info',
+                clickfn: function () {
+                    navigator.scrollToIndex(parseInt(bookmark, 10), true);
+                },
+                closefn: function () {
+                    storage.removeItem('topic:' + tid + ':pin');
+                },
+            });
+            setTimeout(function () {
+                alerts.remove('pin');
             }, 10000);
         }
     }
@@ -308,6 +345,7 @@ define('forum/topic', [
             }
 
             updateUserBookmark(index);
+            updateUserPin(index);
 
             Topic.replaceURLTimeout = 0;
             if (ajaxify.data.updateUrlWithPostIndex && history.replaceState) {
@@ -359,6 +397,41 @@ define('forum/topic', [
         }
     }
 
+    function updateUserPin(index) {
+        const pinKey = 'topic:' + ajaxify.data.tid + ':pin';
+        const currentPin = ajaxify.data.pin || storage.getItem(pinKey);
+        if (config.topicPostSort === 'newest_to_oldest') {
+            index = Math.max(1, ajaxify.data.postcount - index + 2);
+        }
+
+        if (
+            ajaxify.data.postcount > ajaxify.data.pinThreshold &&
+            (
+                !currentPin ||
+                parseInt(index, 10) > parseInt(currentPin, 10) ||
+                ajaxify.data.postcount < parseInt(currentPin, 10)
+            )
+        ) {
+            if (app.user.uid) {
+                socket.emit('topics.pin', {
+                    tid: ajaxify.data.tid,
+                    index: index,
+                }, function (err) {
+                    if (err) {
+                        return alerts.error(err);
+                    }
+                    ajaxify.data.pin = index + 1;
+                });
+            } else {
+                storage.setItem(pinKey, index);
+            }
+        }
+
+        // removes the pin alert when we get to / past the pin
+        if (!currentPin || parseInt(index, 10) >= parseInt(currentPin, 10)) {
+            alerts.remove('pin');
+        }
+    }
 
     return Topic;
 });
