@@ -65,7 +65,6 @@
         <ul component="topic" class="posts timeline" data-tid="{tid}" data-cid="{cid}">
 
         <h3>Pinned Posts</h3>
-            <ul class="posts timeline pinned">
             {{{each posts }}}
                 <li component="post" class="{{{ if posts.deleted }}}deleted{{{ end }}} {{{ if posts.selfPost }}}self-post{{{ end }}} {{{ if posts.topicOwnerPost }}}topic-owner-post{{{ end }}}" <!-- IMPORT partials/data/topic.tpl -->>
                     <a component="post/anchor" data-index="{posts.index}" id="{posts.index}"></a>
@@ -77,11 +76,9 @@
                 </li>
                 {renderTopicEvents(@index, config.topicPostSort)}
             {{{end}}}
-        </ul>
        
             
         <h3>Other Posts</h3>
-            <ul class="posts timeline unpinned">
              {{{each posts }}}
                 <li component="post" class="{{{ if posts.deleted }}}deleted{{{ end }}} {{{ if posts.selfPost }}}self-post{{{ end }}} {{{ if posts.topicOwnerPost }}}topic-owner-post{{{ end }}}" <!-- IMPORT partials/data/topic.tpl -->>
                     <a component="post/anchor" data-index="{posts.index}" id="{posts.index}"></a>
@@ -93,7 +90,6 @@
                 </li>
                 {renderTopicEvents(@index, config.topicPostSort)}
             {{{end}}}
-            </ul>
         </ul>
 
         {{{ if browsingUsers }}}
