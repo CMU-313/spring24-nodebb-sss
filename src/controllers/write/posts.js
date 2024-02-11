@@ -1,5 +1,6 @@
 'use strict';
 
+const assert = require('assert');
 const posts = require('../../posts');
 const privileges = require('../../privileges');
 
@@ -80,6 +81,38 @@ Posts.bookmark = async (req, res) => {
 Posts.unbookmark = async (req, res) => {
     const data = await mock(req);
     await api.posts.unbookmark(req, data);
+    helpers.formatApiResponse(200, res);
+};
+
+/**
+ * Pins a post.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>} - A promise that resolves when the operation is complete.
+ */
+Posts.pin = async (req, res) => {
+    // Assert that req and res are objects
+    assert(typeof req === 'object', 'Expected req to be an object');
+    assert(typeof res === 'object', 'Expected res to be an object');
+    const data = await mock(req);
+    assert(typeof data === 'object', 'Expected data to be an object');
+    await api.posts.pin(req, data);
+    helpers.formatApiResponse(200, res);
+};
+
+/**
+ * Unpins a post.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>} - A promise that resolves when the operation is complete.
+ */
+Posts.unpin = async (req, res) => {
+    // Assert that req and res are objects
+    assert(typeof req === 'object', 'Expected req to be an object');
+    assert(typeof res === 'object', 'Expected res to be an object');
+    const data = await mock(req);
+    assert(typeof data === 'object', 'Expected data to be an object');
+    await api.posts.unpin(req, data);
     helpers.formatApiResponse(200, res);
 };
 
