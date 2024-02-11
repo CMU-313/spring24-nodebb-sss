@@ -78,7 +78,6 @@ module.exports = function (Topics) {
                 `tid:${tid}:posts`,
                 `tid:${tid}:posts:votes`,
                 `tid:${tid}:bookmarks`,
-                `tid:${tid}:pins`,
                 `tid:${tid}:posters`,
             ]),
             db.sortedSetsRemove([

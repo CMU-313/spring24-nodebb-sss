@@ -29,7 +29,6 @@ module.exports = function (SocketPosts) {
             canFlag: privileges.posts.canFlag(data.pid, socket.uid),
             flagged: flags.exists('post', data.pid, socket.uid), // specifically, whether THIS calling user flagged
             bookmarked: posts.hasBookmarked(data.pid, socket.uid),
-            pinned: posts.hasPined(data.pid, socket.uid),
             postSharing: social.getActivePostSharing(),
             history: posts.diffs.exists(data.pid),
             canViewInfo: privileges.global.can('view:users:info', socket.uid),
@@ -38,7 +37,6 @@ module.exports = function (SocketPosts) {
         const postData = results.posts;
         postData.absolute_url = `${nconf.get('url')}/post/${data.pid}`;
         postData.bookmarked = results.bookmarked;
-        postData.pinned = results.pinned;
         postData.selfPost = socket.uid && socket.uid === postData.uid;
         postData.display_edit_tools = results.canEdit.flag;
         postData.display_delete_tools = results.canDelete.flag;

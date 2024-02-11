@@ -360,8 +360,6 @@ get:
                     type: number
                   bookmarkThreshold:
                     type: number
-                  pinThreshold:
-                    type: number
                   necroThreshold:
                     type: number
                   postEditDuration:
