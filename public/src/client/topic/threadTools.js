@@ -332,8 +332,11 @@ define('forum/topic/threadTools', [
     };
 
     // Function to change background color based on pinned state
-    // // i'm trying to get it so that it only does the top one
-    // // This makes it so that any pinned thread has a yellow background. The problem is that it makes all remaining threads also yellow. Also, it only does it temporarily. I think I need to like move this data so that it is somewhere outside of this
+    // i'm trying to get it so that it only does the top one
+    // This makes it so that any pinned thread has a yellow background.
+    // The problem is that it makes all remaining threads also yellow.
+    // Also, it only does it temporarily.
+    // I think I need to like move this data so that it is somewhere outside of this
 
     function changeBackgroundColor(postEl, pinned) {
         if (pinned) {
@@ -343,7 +346,6 @@ define('forum/topic/threadTools', [
         }
     }
 
-
     ThreadTools.setPinnedState = function (data) {
         const threadEl = components.get('topic');
         if (parseInt(data.tid, 10) !== parseInt(threadEl.attr('data-tid'), 10)) {
@@ -351,11 +353,8 @@ define('forum/topic/threadTools', [
         }
 
         // const postEl = components.get('topic/title'); // will choose only the title
-
         const postEl = components.get('topic');
         changeBackgroundColor(postEl, data.pinned);
-
-        
 
         components.get('topic/pin').toggleClass('hidden', data.pinned).parent().attr('hidden', data.pinned ? '' : null);
         components.get('topic/unpin').toggleClass('hidden', !data.pinned).parent().attr('hidden', !data.pinned ? '' : null);
@@ -371,7 +370,6 @@ define('forum/topic/threadTools', [
         }
         ajaxify.data.pinned = data.pinned;
         posts.addTopicEvents(data.events);
-        
     };
 
     function setFollowState(state) {
