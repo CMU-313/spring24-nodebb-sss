@@ -1,5 +1,7 @@
 'use strict';
 
+const { post } = require("jquery");
+
 
 define('forum/topic/threadTools', [
     'components',
@@ -329,12 +331,31 @@ define('forum/topic/threadTools', [
         posts.addTopicEvents(data.events);
     };
 
+    // Function to change background color based on pinned state
+    // // i'm trying to get it so that it only does the top one
+    // // This makes it so that any pinned thread has a yellow background. The problem is that it makes all remaining threads also yellow. Also, it only does it temporarily. I think I need to like move this data so that it is somewhere outside of this
+
+    function changeBackgroundColor(postEl, pinned) {
+        if (pinned) {
+            postEl.css('background-color', 'yellow'); // Change the background color to yellow for pinned posts
+        } else {
+            postEl.css('background-color', ''); // Reset background color for unpinned posts
+        }
+    }
+
 
     ThreadTools.setPinnedState = function (data) {
         const threadEl = components.get('topic');
         if (parseInt(data.tid, 10) !== parseInt(threadEl.attr('data-tid'), 10)) {
             return;
         }
+
+        // const postEl = components.get('topic/title'); // will choose only the title
+
+        const postEl = components.get('topic');
+        changeBackgroundColor(postEl, data.pinned);
+
+        
 
         components.get('topic/pin').toggleClass('hidden', data.pinned).parent().attr('hidden', data.pinned ? '' : null);
         components.get('topic/unpin').toggleClass('hidden', !data.pinned).parent().attr('hidden', !data.pinned ? '' : null);
@@ -345,11 +366,12 @@ define('forum/topic/threadTools', [
                 data.pinExpiry && data.pinExpiryISO ?
                     '[[topic:pinned-with-expiry, ' + data.pinExpiryISO + ']]' :
                     '[[topic:pinned]]'
+
             ));
         }
         ajaxify.data.pinned = data.pinned;
-
         posts.addTopicEvents(data.events);
+        
     };
 
     function setFollowState(state) {
