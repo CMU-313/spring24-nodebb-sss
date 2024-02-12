@@ -14,7 +14,16 @@ module.exports = function (Posts) {
         };
     }
 
-    Posts.is_important = async function (pid, uid) {
+    Posts.mark_unimportant = async function(pid, uid) {
+        assert(typeof(uid) === 'number');
+        assert(typeof(pid) === 'number');
+        await Posts.setPostField(pid, 'important', 0);
+        return {
+            pid : pid, uid : uid, important : 0
+        };
+    }
+
+    Posts.is_important = async function (pid) {
         return await Posts.getPostField(pid, 'important');
     }
 
