@@ -232,6 +232,7 @@ module.exports = function (Topics) {
 
         posts.overrideGuestHandle(postData, data.handle);
 
+        postData.important = 0;
         postData.votes = 0;
         postData.bookmarked = false;
         postData.display_edit_tools = true;

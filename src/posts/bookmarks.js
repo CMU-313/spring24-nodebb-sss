@@ -2,8 +2,22 @@
 
 const db = require('../database');
 const plugins = require('../plugins');
+const assert = require('assert')
 
 module.exports = function (Posts) {
+    Posts.mark_important = async function(pid, uid) {
+        assert(typeof(uid) === 'number');
+        assert(typeof(pid) === 'number');
+        await Posts.setPostField(pid, 'important', 1);
+        return {
+            pid : pid, uid : uid, important : 1
+        };
+    }
+
+    Posts.is_important = async function (pid, uid) {
+        return await Posts.getPostField(pid, 'important');
+    }
+
     Posts.bookmark = async function (pid, uid) {
         return await toggleBookmark('bookmark', pid, uid);
     };
