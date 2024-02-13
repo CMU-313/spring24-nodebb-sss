@@ -71,7 +71,7 @@ topicsController.get = async function getTopic(req, res, next) {
     }
     postIndex = Math.max(1, postIndex);
     const sort = req.query.sort || settings.topicPostSort;
-    const set = sort === 'most_votes' ? `tid:${tid}:posts:votes` : `tid:${tid}:posts`;
+    const set = sort === 'most_votes' ? `tid:${tid}:posts:votes:important` : `tid:${tid}:posts:important`;
     const reverse = sort === 'newest_to_oldest' || sort === 'most_votes';
     if (settings.usePagination && !req.query.page) {
         currentPage = calculatePageFromIndex(postIndex, settings);
