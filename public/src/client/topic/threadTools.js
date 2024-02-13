@@ -1,6 +1,9 @@
+
 'use strict';
 
-const { post } = require("jquery");
+// The next line was part of the original code base
+// eslint-disable-next-line no-unused-vars
+const { post } = require('jquery');
 
 
 define('forum/topic/threadTools', [
@@ -331,18 +334,31 @@ define('forum/topic/threadTools', [
         posts.addTopicEvents(data.events);
     };
 
-    // Function to change background color based on pinned state
-    // i'm trying to get it so that it only does the top one
-    // This makes it so that any pinned thread has a yellow background.
-    // The problem is that it makes all remaining threads also yellow.
-    // Also, it only does it temporarily.
-    // I think I need to like move this data so that it is somewhere outside of this
+
+
+    /**
+     * changeBackgroundColor
+     * @brief Takes the element postEl and makes its background color gray.
+     * Current issues:
+     * (1) Makes the entire thread have the background color, not just the top
+     * message. I think this is fine though since the eventual goal is to give
+     * specific posts the pinned characteristic.
+     * (2) Changes are temporary. Refreshing the page, exiting and coming back,
+     * all remove the changes. Maybe moving this function call somewhere else?
+     * @param {*} postEl
+     * @param {*} pinned
+     */
 
     function changeBackgroundColor(postEl, pinned) {
+        /** Type Sanity Checks  */
+        console.assert(typeof pinned === 'boolean', 'pinned should be of type boolean');
+        console.assert(typeof postEl === 'object', 'postEl should be an object');
+
         if (pinned) {
-            postEl.css('background-color', 'yellow'); // Change the background color to yellow for pinned posts
+            postEl.css('background-color', '#B3CBB9');
         } else {
-            postEl.css('background-color', ''); // Reset background color for unpinned posts
+            // Reset background color for unpinned posts
+            postEl.css('background-color', '');
         }
     }
 
@@ -352,6 +368,7 @@ define('forum/topic/threadTools', [
             return;
         }
 
+        /** New Call to changeBackgroundColor when the pinState is set */
         // const postEl = components.get('topic/title'); // will choose only the title
         const postEl = components.get('topic');
         changeBackgroundColor(postEl, data.pinned);
