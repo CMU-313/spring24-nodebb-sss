@@ -274,36 +274,12 @@ postsAPI.unbookmark = async function (caller, data) {
     return await apiHelpers.postCommand(caller, 'unbookmark', 'bookmarked', '', data);
 };
 
-/**
- * Pins a post.
- * @param {Object} caller - The user or system making the API call.
- * @param {Object} data - The data associated with the pinning action.
- * @returns {Promise<Object>} A promise that resolves with the result of the pinning action.
- */
-postsAPI.pin = async function (caller, data) {
-    // Assert that caller and data are objects
-    assert(typeof caller === 'object', 'caller must be an object');
-    assert(typeof data === 'object', 'data must be an object');
-    const result = await apiHelpers.postCommand(caller, 'pin', 'pinned', '', data);
-    // Assert that the result is an object
-    assert(typeof result === 'object', 'Expected the result to be an object');
-    return result;
+postsAPI.important = async function (caller, data) {
+    return await apiHelpers.postCommand(caller, 'mark_important', '', '', data);
 };
 
-/**
- * Unpins a post.
- * @param {Object} caller - The user or system making the API call.
- * @param {Object} data - The data associated with the unpinning action.
- * @returns {Promise<Object>} A promise that resolves with the result of the unpinning action.
- */
-postsAPI.unpin = async function (caller, data) {
-    // Assert that caller and data are objects
-    assert(typeof caller === 'object', 'caller must be an object');
-    assert(typeof data === 'object', 'data must be an object');
-    const result = await apiHelpers.postCommand(caller, 'unpinned', 'pinned', '', data);
-    // Assert that the result is an object
-    assert(typeof result === 'object', 'Expected the result to be an object');
-    return result;
+postsAPI.unimportant = async function (caller, data) {
+    return await apiHelpers.postCommand(caller, 'mark_unimportant', '', '', data);
 };
 
 async function diffsPrivilegeCheck(pid, uid) {
