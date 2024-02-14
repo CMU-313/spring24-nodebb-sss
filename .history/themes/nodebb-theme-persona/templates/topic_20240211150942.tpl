@@ -65,7 +65,7 @@
         <ul component="topic" class="posts timeline" data-tid="{tid}" data-cid="{cid}">
 
         <h3>Pinned Posts</h3>
-            <ul class="posts timeline pinned">
+        <ul class="pinned">
             {{{each posts }}}
                 <li component="post" class="{{{ if posts.deleted }}}deleted{{{ end }}} {{{ if posts.selfPost }}}self-post{{{ end }}} {{{ if posts.topicOwnerPost }}}topic-owner-post{{{ end }}}" <!-- IMPORT partials/data/topic.tpl -->>
                     <a component="post/anchor" data-index="{posts.index}" id="{posts.index}"></a>
@@ -81,7 +81,7 @@
        
             
         <h3>Other Posts</h3>
-            <ul class="posts timeline unpinned">
+        <ul class="unpinned">
              {{{each posts }}}
                 <li component="post" class="{{{ if posts.deleted }}}deleted{{{ end }}} {{{ if posts.selfPost }}}self-post{{{ end }}} {{{ if posts.topicOwnerPost }}}topic-owner-post{{{ end }}}" <!-- IMPORT partials/data/topic.tpl -->>
                     <a component="post/anchor" data-index="{posts.index}" id="{posts.index}"></a>
