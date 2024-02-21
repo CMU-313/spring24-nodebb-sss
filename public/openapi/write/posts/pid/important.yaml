@@ -1,8 +1,8 @@
 put:
   tags:
     - posts
-  summary: pin a post
-  description: This operation pins a post.
+  summary: mark a post as important
+  description: This operation marks a post as important.
   parameters:
     - in: path
       name: pid
@@ -13,7 +13,7 @@ put:
       example: 2
   responses:
     '200':
-      description: Post successfully pinned
+      description: Post successfully marked as important
       content:
         application/json:
           schema:
@@ -27,8 +27,8 @@ put:
 delete:
   tags:
     - posts
-  summary: unpin a post
-  description: This operation unpins a post.
+  summary: mark a post as unimportant
+  description: This operation marks a post as unimportant.
   parameters:
     - in: path
       name: pid
@@ -39,7 +39,7 @@ delete:
       example: 2
   responses:
     '200':
-      description: Post successfully unpinned
+      description: Post successfully marked as important
       content:
         application/json:
           schema:

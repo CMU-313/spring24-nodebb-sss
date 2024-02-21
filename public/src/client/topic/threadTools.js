@@ -10,13 +10,13 @@ define('forum/topic/threadTools', [
     'components',
     'translator',
     'handleBack',
-    'handleBackPin',
+    'handleBackImportant',
     'forum/topic/posts',
     'api',
     'hooks',
     'bootbox',
     'alerts',
-], function (components, translator, handleBack, handleBackPin, posts, api, hooks, bootbox, alerts) {
+], function (components, translator, handleBack, handleBackImportant, posts, api, hooks, bootbox, alerts) {
     const ThreadTools = {};
 
     ThreadTools.init = function (tid, topicContainer) {

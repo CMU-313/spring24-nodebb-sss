@@ -15,10 +15,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 const database_1 = __importDefault(require("../database"));
 const plugins_1 = __importDefault(require("../plugins"));
 const utils_1 = __importDefault(require("../utils"));
+// should edit fields somewhere else to include important
 const intFields = [
     'uid', 'pid', 'tid', 'deleted', 'timestamp',
     'upvotes', 'downvotes', 'deleterUid', 'edited',
-    'replies', 'bookmarks',
+    'replies', 'bookmarks', 'important'
 ];
 function modifyPost(post, fields) {
     if (post) {

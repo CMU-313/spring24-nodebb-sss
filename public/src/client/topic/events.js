@@ -27,8 +27,8 @@ define('forum/topic/events', [
         'event:topic_locked': threadTools.setLockedState,
         'event:topic_unlocked': threadTools.setLockedState,
 
-        'event:topic_pinned': threadTools.setPinnedState,
-        'event:topic_unpinned': threadTools.setPinnedState,
+        'event:topic_important': threadTools.setImportantState,
+        'event:topic_unimportant': threadTools.setImportantState,
 
         'event:topic_moved': onTopicMoved,
 
@@ -225,27 +225,28 @@ define('forum/topic/events', [
         el.find('[component="post/bookmark/off"]').toggleClass('hidden', data.isBookmarked);
     }
 
-    function togglePostPin(data) {
+    function togglePostImportant(data) {
         // Assert that data is an object
         assert(typeof data === 'object', 'Expected `data` to be an object');
         // Assert that data.post is an object
         assert(typeof data.post === 'object', 'Expected `data.post` to be an object');
-        // Assert that data.post.pid is a string or number
-        assert(typeof data.post.pid === 'string' || typeof data.post.pid === 'number', 'Expected `data.post.pid` to be a string or number');
+        // Assert that data.post.pid is a number
+        assert(typeof data.post.pid === 'number', 'Expected `data.post.pid` to be a number');
         // Assert that data.isPinned is a boolean
-        assert(typeof data.isPinned === 'boolean', 'Expected `data.isPinned` to be a boolean');
-        const el = $('[data-pid="' + data.post.pid + '"] [component="post/pin"]').filter(function (index, el) {
+        assert(typeof data.isImportant === 'boolean', 'Expected `data.isImportant` to be a boolean');
+        const el = $('[data-pid="' + data.post.pid + '"] [component="post/important"]').filter(function (index, el) {
             return parseInt($(el).closest('[data-pid]').attr('data-pid'), 10) === parseInt(data.post.pid, 10);
         });
         if (!el.length) {
             return;
         }
 
-        el.attr('data-pinned', data.isPinned);
+        el.attr('data-important', data.isImportant);
 
-        el.find('[component="post/pin/on"]').toggleClass('hidden', !data.isPinned);
-        el.find('[component="post/pin/off"]').toggleClass('hidden', data.isPinned);
+        el.find('[component="post/important/on"]').toggleClass('hidden', !data.isImportant);
+        el.find('[component="post/important/off"]').toggleClass('hidden', data.isImportant);
     }
+    
     function togglePostVote(data) {
         const post = $('[data-pid="' + data.post.pid + '"]');
         post.find('[component="post/upvote"]').filter(function (index, el) {

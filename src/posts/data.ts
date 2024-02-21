@@ -6,10 +6,11 @@ import { CategoryObject } from './category';
 import { TopicObject } from '../types/topic';
 import { UserObjectSlim } from './user';
 
+// should edit fields somewhere else to include important
 const intFields: string[] = [
     'uid', 'pid', 'tid', 'deleted', 'timestamp',
     'upvotes', 'downvotes', 'deleterUid', 'edited',
-    'replies', 'bookmarks',
+    'replies', 'bookmarks', 'important'
 ];
 
 interface PostObjectNew {
