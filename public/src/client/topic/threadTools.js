@@ -345,8 +345,8 @@ define('forum/topic/threadTools', [
      * specific posts the pinned characteristic.
      * (2) Changes are temporary. Refreshing the page, exiting and coming back,
      * all remove the changes. Maybe moving this function call somewhere else?
-     * @param {*} postEl
-     * @param {*} pinned
+     * @param {object} postEl - The element to change the background color.
+     * @param {boolean} pinned - Indicates whether the post is pinned.
      */
 
     function changeBackgroundColor(postEl, pinned) {
@@ -370,7 +370,7 @@ define('forum/topic/threadTools', [
 
         /** New Call to changeBackgroundColor when the pinState is set */
         // const postEl = components.get('topic/title'); // will choose only the title
-        const postEl = components.get('topic');
+        const postEl = components.get('post');
         changeBackgroundColor(postEl, data.pinned);
 
         components.get('topic/pin').toggleClass('hidden', data.pinned).parent().attr('hidden', data.pinned ? '' : null);
