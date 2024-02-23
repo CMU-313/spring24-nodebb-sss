@@ -10,7 +10,7 @@
                 <span class="topic-title">
                     <span component="topic/labels">
                         <i component="topic/scheduled" class="fa fa-clock-o <!-- IF !scheduled -->hidden<!-- ENDIF !scheduled -->" title="[[topic:scheduled]]"></i>
-                        <i component="topic/pinned" class="fa fa-thumb-tack <!-- IF (scheduled || !pinned) -->hidden<!-- ENDIF (scheduled || !pinned) -->" title="{{{ if !pinExpiry }}}[[topic:pinned]]{{{ else }}}[[topic:pinned-with-expiry, {pinExpiryISO}]]{{{ end }}}"></i>
+                        <i component="topic/important" class="fa fa-thumb-tack <!-- IF (scheduled || !pinned) -->hidden<!-- ENDIF (scheduled || !pinned) -->" title="{{{ if !pinExpiry }}}[[topic:pinned]]{{{ else }}}[[topic:pinned-with-expiry, {pinExpiryISO}]]{{{ end }}}"></i>
                         <i component="topic/locked" class="fa fa-lock <!-- IF !locked -->hidden<!-- ENDIF !locked -->" title="[[topic:locked]]"></i>
                         <i class="fa fa-arrow-circle-right <!-- IF !oldCid -->hidden<!-- ENDIF !oldCid -->" title="{{{ if privileges.isAdminOrMod }}}[[topic:moved-from, {oldCategory.name}]]{{{ else }}}[[topic:moved]]{{{ end }}}"></i>
                         {{{each icons}}}{@value}{{{end}}}
@@ -62,42 +62,11 @@
         <!-- IMPORT partials/topic/deleted-message.tpl -->
         {{{ end }}}
 
-        {% comment %} <ul component="topic" class="posts timeline" data-tid="{tid}" data-cid="{cid}">
+        <ul component="topic" class="posts timeline" data-tid="{tid}" data-cid="{cid}">
 
         <h3>Pinned Posts</h3>
-        
-            {{{each posts.important }}}
-                <li component="post" class="{{{ if posts.deleted }}}deleted{{{ end }}} {{{ if posts.selfPost }}}self-post{{{ end }}} {{{ if posts.topicOwnerPost }}}topic-owner-post{{{ end }}}" <!-- IMPORT partials/data/topic.tpl -->>
-                    <a component="post/anchor" data-index="{posts.index}" id="{posts.index}"></a>
-
-                    <meta itemprop="datePublished" content="{posts.timestampISO}">
-                    <meta itemprop="dateModified" content="{posts.editedISO}">
-
-                    <!-- IMPORT partials/topic/post.tpl -->
-                </li>
-                {renderTopicEvents(@index, config.topicPostSort)}
-            {{{end}}}
-    
-            
-        <h3>Other Posts</h3>
-             {{{each posts.unimportant }}}
-                <li component="post" class="{{{ if posts.deleted }}}deleted{{{ end }}} {{{ if posts.selfPost }}}self-post{{{ end }}} {{{ if posts.topicOwnerPost }}}topic-owner-post{{{ end }}}" <!-- IMPORT partials/data/topic.tpl -->>
-                    <a component="post/anchor" data-index="{posts.index}" id="{posts.index}"></a>
-
-                    <meta itemprop="datePublished" content="{posts.timestampISO}">
-                    <meta itemprop="dateModified" content="{posts.editedISO}">
-
-                    <!-- IMPORT partials/topic/post.tpl -->
-                </li>
-                {renderTopicEvents(@index, config.topicPostSort)}
-            {{{end}}}
-    
-        </ul> {% endcomment %}
-
-        <h4>Changed!!</h4>
-
-        <ul component="topic" class="posts timeline" data-tid="{tid}" data-cid="{cid}">
-            {{{each posts}}}
+            <ul class="posts timeline important">
+            {{{each posts }}}
                 <li component="post" class="{{{ if posts.deleted }}}deleted{{{ end }}} {{{ if posts.selfPost }}}self-post{{{ end }}} {{{ if posts.topicOwnerPost }}}topic-owner-post{{{ end }}}" <!-- IMPORT partials/data/topic.tpl -->>
                     <a component="post/anchor" data-index="{posts.index}" id="{posts.index}"></a>
 
@@ -109,7 +78,23 @@
                 {renderTopicEvents(@index, config.topicPostSort)}
             {{{end}}}
         </ul>
+       
+            
+        <h3>Other Posts</h3>
+            <ul class="posts timeline unpinned">
+             {{{each posts }}}
+                <li component="post" class="{{{ if posts.deleted }}}deleted{{{ end }}} {{{ if posts.selfPost }}}self-post{{{ end }}} {{{ if posts.topicOwnerPost }}}topic-owner-post{{{ end }}}" <!-- IMPORT partials/data/topic.tpl -->>
+                    <a component="post/anchor" data-index="{posts.index}" id="{posts.index}"></a>
 
+                    <meta itemprop="datePublished" content="{posts.timestampISO}">
+                    <meta itemprop="dateModified" content="{posts.editedISO}">
+
+                    <!-- IMPORT partials/topic/post.tpl -->
+                </li>
+                {renderTopicEvents(@index, config.topicPostSort)}
+            {{{end}}}
+            </ul>
+        </ul>
 
         {{{ if browsingUsers }}}
         <div class="visible-xs">

@@ -1,7 +1,8 @@
 'use strict';
+'resolve.fallback: { "assert": require.resolve("assert/") }'
 
 
-// const assert = require('assert');
+const assert = require('assert');
 
 define('forum/topic/postTools', [
     'share',

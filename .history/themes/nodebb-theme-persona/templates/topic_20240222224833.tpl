@@ -62,7 +62,7 @@
         <!-- IMPORT partials/topic/deleted-message.tpl -->
         {{{ end }}}
 
-        {% comment %} <ul component="topic" class="posts timeline" data-tid="{tid}" data-cid="{cid}">
+        <ul component="topic" class="posts timeline" data-tid="{tid}" data-cid="{cid}">
 
         <h3>Pinned Posts</h3>
         
@@ -92,24 +92,7 @@
                 {renderTopicEvents(@index, config.topicPostSort)}
             {{{end}}}
     
-        </ul> {% endcomment %}
-
-        <h4>Changed!!</h4>
-
-        <ul component="topic" class="posts timeline" data-tid="{tid}" data-cid="{cid}">
-            {{{each posts}}}
-                <li component="post" class="{{{ if posts.deleted }}}deleted{{{ end }}} {{{ if posts.selfPost }}}self-post{{{ end }}} {{{ if posts.topicOwnerPost }}}topic-owner-post{{{ end }}}" <!-- IMPORT partials/data/topic.tpl -->>
-                    <a component="post/anchor" data-index="{posts.index}" id="{posts.index}"></a>
-
-                    <meta itemprop="datePublished" content="{posts.timestampISO}">
-                    <meta itemprop="dateModified" content="{posts.editedISO}">
-
-                    <!-- IMPORT partials/topic/post.tpl -->
-                </li>
-                {renderTopicEvents(@index, config.topicPostSort)}
-            {{{end}}}
         </ul>
-
 
         {{{ if browsingUsers }}}
         <div class="visible-xs">

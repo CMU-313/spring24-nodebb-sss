@@ -1,7 +1,6 @@
 'use strict';
 
-
-// const assert = require('assert');
+const assert = require('assert');
 
 define('forum/topic/postTools', [
     'share',
@@ -66,7 +65,11 @@ define('forum/topic/postTools', [
     PostTools.toggle = function (pid, isDeleted) {
         const postEl = components.get('post', 'pid', pid);
 
+<<<<<<< HEAD
+        postEl.find('[component="post/quote"], [component="post/bookmark"], [component="post/pin"], [component="post/reply"], [component="post/flag"], [component="user/chat"]')
+=======
         postEl.find('[component="post/quote"], [component="post/bookmark"], [component="post/important"], [component="post/reply"], [component="post/flag"], [component="user/chat"]')
+>>>>>>> merging_attempt_2
             .toggleClass('hidden', isDeleted);
 
         postEl.find('[component="post/delete"]').toggleClass('hidden', isDeleted).parent().attr('hidden', isDeleted ? '' : null);
@@ -421,6 +424,24 @@ define('forum/topic/postTools', [
     }
 
     /**
+<<<<<<< HEAD
+     * Toggles the pin state of a post.
+     * @param {JQuery} button - The jQuery object representing the button clicked to pin/unpin a post.
+     * @param {number} pid - The post ID to be pinned or unpinned.
+     * @returns {boolean} Always returns false to prevent default action for a button click.
+     */
+    function pinPost(button, pid) {
+        // Assert parameter types
+        assert(button instanceof jQuery, 'button must be a jQuery object');
+        assert(typeof pid === 'number', 'pid must be a number');
+        const method = button.attr('data-pinned') === 'false' ? 'put' : 'del';
+
+        api[method](`/posts/${pid}/pin`, undefined, function (err) {
+            if (err) {
+                return alerts.error(err);
+            }
+            const type = method === 'put' ? 'pin' : 'unpin';
+=======
      * Toggles the important state of a post.
      * @param {JQuery} button - The jQuery object representing the button clicked to mark a post as important or unimportant.
      * @param {number} pid - The post ID to be important or unimportant.
@@ -437,6 +458,7 @@ define('forum/topic/postTools', [
                 return alerts.error(err);
             }
             const type = method === 'put' ? 'important' : 'unimportant';
+>>>>>>> merging_attempt_2
             hooks.fire(`action:post.${type}`, { pid: pid });
         });
         return false;
