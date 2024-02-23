@@ -243,7 +243,7 @@ define('forum/topic/events', [
         console.assert(typeof important === 'boolean', 'important should be of type boolean');
         console.assert(typeof postEl === 'object', 'postEl should be an object');
 
-        if (post.important) {
+        if (important) {
             postEl.css('background-color', '#B3CBB9');
         } else {
             // Reset background color for unimportant posts
@@ -259,7 +259,7 @@ define('forum/topic/events', [
         // Assert that data.post.pid is a number
         assert(typeof data.post.pid === 'number', 'Expected data.post.pid to be a number');
         // Assert that data.isPinned is a boolean
-        assert(typeof data.important === 'boolean', 'Expected data.important to be a boolean');
+        assert(typeof data.isImportant === 'boolean', 'Expected data.isImportant to be a boolean');
         const el = $('[data-pid="' + data.post.pid + '"] [component="post/important"]').filter(function (index, el) {
             return parseInt($(el).closest('[data-pid]').attr('data-pid'), 10) === parseInt(data.post.pid, 10);
         });
@@ -267,14 +267,13 @@ define('forum/topic/events', [
             return;
         }
 
-
         const postEl = components.get('post');
         changeBackgroundColor(postEl, data.post.important);
 
-        el.attr('data-important', data.important);
+        el.attr('data-important', data.isImportant);
 
-        el.find('[component="post/important/on"]').toggleClass('hidden', !data.important);
-        el.find('[component="post/important/off"]').toggleClass('hidden', data.important);
+        el.find('[component="post/important/on"]').toggleClass('hidden', !data.isImportant);
+        el.find('[component="post/important/off"]').toggleClass('hidden', data.isImportant);
     }
 
     

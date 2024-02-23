@@ -273,8 +273,8 @@ define('forum/topic/events', [
 
         el.attr('data-important', data.important);
 
-        el.find('[component="post/important/on"]').toggleClass('hidden', !data.important);
-        el.find('[component="post/important/off"]').toggleClass('hidden', data.important);
+        el.find('[component="post/important/on"]').toggleClass('hidden', !data.isImportant);
+        el.find('[component="post/important/off"]').toggleClass('hidden', data.isImportant);
     }
 
     
