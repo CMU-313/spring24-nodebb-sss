@@ -3,6 +3,7 @@
 const validator = require('validator');
 const _ = require('lodash');
 
+const assert = require('assert');
 const utils = require('../utils');
 const user = require('../user');
 const posts = require('../posts');
@@ -274,11 +275,11 @@ postsAPI.unbookmark = async function (caller, data) {
 };
 
 postsAPI.important = async function (caller, data) {
-    return await apiHelpers.postCommand(caller, 'mark_important', '', '', data);
+    return await apiHelpers.postCommand(caller, 'important', '', '', data);
 };
 
 postsAPI.unimportant = async function (caller, data) {
-    return await apiHelpers.postCommand(caller, 'mark_unimportant', '', '', data);
+    return await apiHelpers.postCommand(caller, 'unimportant', '', '', data);
 };
 
 async function diffsPrivilegeCheck(pid, uid) {

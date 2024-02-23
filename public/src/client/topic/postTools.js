@@ -1,5 +1,6 @@
 'use strict';
 
+const assert = require('assert');
 
 define('forum/topic/postTools', [
     'share',
@@ -64,7 +65,7 @@ define('forum/topic/postTools', [
     PostTools.toggle = function (pid, isDeleted) {
         const postEl = components.get('post', 'pid', pid);
 
-        postEl.find('[component="post/quote"], [component="post/bookmark"], [component="post/reply"], [component="post/flag"], [component="user/chat"]')
+        postEl.find('[component="post/quote"], [component="post/bookmark"], [component="post/important"], [component="post/reply"], [component="post/flag"], [component="user/chat"]')
             .toggleClass('hidden', isDeleted);
 
         postEl.find('[component="post/delete"]').toggleClass('hidden', isDeleted).parent().attr('hidden', isDeleted ? '' : null);
@@ -118,6 +119,16 @@ define('forum/topic/postTools', [
 
         postContainer.on('click', '[component="post/upvote"]', function () {
             return votes.toggleVote($(this), '.upvoted', 1);
+        });
+
+        // Assert that postContainer is a jQuery object
+        assert(postContainer instanceof jQuery, 'postContainer must be a jQuery object');
+        postContainer.on('click', '[component="post/important"]', function () {
+            // Assuming getData is defined elsewhere and retrieves a data attribute value from a jQuery element
+            const pid = getData($(this), 'data-pid');
+            // Assert that pid is a string or number, if getData's behavior is well-defined and consistent
+            assert(typeof pid === 'number', 'Expected data-pid to be a number');
+            return markImportantPost($(this), getData($(this), 'data-pid'));
         });
 
         postContainer.on('click', '[component="post/downvote"]', function () {
@@ -396,6 +407,28 @@ define('forum/topic/postTools', [
 
             resolve(slug);
         });
+    }
+
+    /**
+     * Toggles the important state of a post.
+     * @param {JQuery} button - The jQuery object representing the button clicked to mark a post as important or unimportant.
+     * @param {number} pid - The post ID to be important or unimportant.
+     * @returns {boolean} Always returns false to prevent default action for a button click.
+     */
+    function markImportantPost(button, pid) {
+        // Assert parameter types
+        assert(button instanceof jQuery, 'button must be a jQuery object');
+        assert(typeof pid === 'number', 'pid must be a number');
+        const method = button.attr('data-important') === 'false' ? 'put' : 'del';
+
+        api[method](`/posts/${pid}/important`, undefined, function (err) {
+            if (err) {
+                return alerts.error(err);
+            }
+            const type = method === 'put' ? 'important' : 'unimportant';
+            hooks.fire(`action:post.${type}`, { pid: pid });
+        });
+        return false;
     }
 
     function togglePostDelete(button) {

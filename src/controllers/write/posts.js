@@ -87,6 +87,38 @@ Posts.getDiffs = async (req, res) => {
     helpers.formatApiResponse(200, res, await api.posts.getDiffs(req, { ...req.params }));
 };
 
+/**
+ * Mark a post as important.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>} - A promise that resolves when the operation is complete.
+ */
+Posts.important = async (req, res) => {
+    // Assert that req and res are objects
+    assert(typeof req === 'object', 'Expected req to be an object');
+    assert(typeof res === 'object', 'Expected res to be an object');
+    const data = await mock(req);
+    assert(typeof data === 'object', 'Expected data to be an object');
+    await api.posts.important(req, data);
+    helpers.formatApiResponse(200, res);
+};
+
+/**
+ * Mark a post as unimportant.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>} - A promise that resolves when the operation is complete.
+ */
+Posts.unimportant = async (req, res) => {
+    // Assert that req and res are objects
+    assert(typeof req === 'object', 'Expected req to be an object');
+    assert(typeof res === 'object', 'Expected res to be an object');
+    const data = await mock(req);
+    assert(typeof data === 'object', 'Expected data to be an object');
+    await api.posts.unimportant(req, data);
+    helpers.formatApiResponse(200, res);
+};
+
 Posts.loadDiff = async (req, res) => {
     helpers.formatApiResponse(200, res, await api.posts.loadDiff(req, { ...req.params }));
 };

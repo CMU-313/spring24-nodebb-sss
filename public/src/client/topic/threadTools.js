@@ -1,5 +1,9 @@
 'use strict';
 
+// The next line was part of the original code base
+// eslint-disable-next-line no-unused-vars
+const { post } = require('jquery');
+
 
 define('forum/topic/threadTools', [
     'components',
