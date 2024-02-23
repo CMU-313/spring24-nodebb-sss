@@ -85,7 +85,7 @@
     </li>
     {{{ end }}}
 
-    {{{ if config.loggedIn && userData['account-type'] == 'instructor' }}}
+    {{{ if config.loggedIn }}}
     <li>
         <a component="post/pin" role="menuitem" tabindex="-1" href="#" data-pinned="{posts.pinned}">
             <span class="menu-icon">
