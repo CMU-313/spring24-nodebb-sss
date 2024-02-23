@@ -32,6 +32,7 @@
             </span>
         </span>
 
+        fa-thumb-tack
 
     </small>
     <small class="pull-right">
