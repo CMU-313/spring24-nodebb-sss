@@ -41,8 +41,13 @@ define('forum/topic/events', [
         'posts.bookmark': togglePostBookmark,
         'posts.unbookmark': togglePostBookmark,
 
+<<<<<<< HEAD
         'posts.pin': togglePostPin,
         'posts.unpin': togglePostPin,
+=======
+        'posts.important': togglePostImportant,
+        'posts.unimportant': togglePostImportant,
+>>>>>>> merging_attempt_2
 
         'posts.upvote': togglePostVote,
         'posts.downvote': togglePostVote,
@@ -225,6 +230,7 @@ define('forum/topic/events', [
         el.find('[component="post/bookmark/off"]').toggleClass('hidden', data.isBookmarked);
     }
 
+<<<<<<< HEAD
     function togglePostPin(data) {
         // Assert that data is an object
         assert(typeof data === 'object', 'Expected `data` to be an object');
@@ -235,17 +241,68 @@ define('forum/topic/events', [
         // Assert that data.isPinned is a boolean
         assert(typeof data.isPinned === 'boolean', 'Expected `data.isPinned` to be a boolean');
         const el = $('[data-pid="' + data.post.pid + '"] [component="post/pin"]').filter(function (index, el) {
+=======
+        /**
+     * changeBackgroundColor
+     * @brief Takes the element postEl and makes its background color gray.
+     * Current issues:
+     * (1) Makes the entire thread have the background color, not just the top
+     * message. I think this is fine though since the eventual goal is to give
+     * specific posts the pinned characteristic.
+     * (2) Changes are temporary. Refreshing the page, exiting and coming back,
+     * all remove the changes. Maybe moving this function call somewhere else?
+     * @param {*} postEl
+     * @param {*} important
+     */
+
+    function changeBackgroundColor(postEl, important) {
+        /** Type Sanity Checks  */
+        console.assert(typeof important === 'boolean', 'important should be of type boolean');
+        console.assert(typeof postEl === 'object', 'postEl should be an object');
+
+        if (important) {
+            postEl.css('background-color', '#B3CBB9');
+        } else {
+            // Reset background color for unimportant posts
+            postEl.css('background-color', '');
+        }
+    }
+
+    function togglePostImportant(data) {
+        // Assert that data is an object
+        assert(typeof data === 'object', 'Expected data to be an object');
+        // Assert that data.post is an object
+        assert(typeof data.post === 'object', 'Expected data.post to be an object');
+        // Assert that data.post.pid is a number
+        assert(typeof data.post.pid === 'number', 'Expected data.post.pid to be a number');
+        // Assert that data.isPinned is a boolean
+        assert(typeof data.isImportant === 'boolean', 'Expected data.isImportant to be a boolean');
+        const el = $('[data-pid="' + data.post.pid + '"] [component="post/important"]').filter(function (index, el) {
+>>>>>>> merging_attempt_2
             return parseInt($(el).closest('[data-pid]').attr('data-pid'), 10) === parseInt(data.post.pid, 10);
         });
         if (!el.length) {
             return;
         }
 
+<<<<<<< HEAD
         el.attr('data-pinned', data.isPinned);
 
         el.find('[component="post/pin/on"]').toggleClass('hidden', !data.isPinned);
         el.find('[component="post/pin/off"]').toggleClass('hidden', data.isPinned);
     }
+=======
+        const postEl = components.get('post');
+        changeBackgroundColor(postEl, data.post.important);
+
+        el.attr('data-important', data.isImportant);
+
+        el.find('[component="post/important/on"]').toggleClass('hidden', !data.isImportant);
+        el.find('[component="post/important/off"]').toggleClass('hidden', data.isImportant);
+    }
+
+
+>>>>>>> merging_attempt_2
     function togglePostVote(data) {
         const post = $('[data-pid="' + data.post.pid + '"]');
         post.find('[component="post/upvote"]').filter(function (index, el) {
