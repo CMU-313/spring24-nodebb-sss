@@ -269,15 +269,18 @@ define('forum/topic/events', [
 
 
         const postEl = components.get('post');
-        changeBackgroundColor(postEl, data.post.isImportant);
+        changeBackgroundColor(postEl, data.post.important);
 
-        el.attr('data-important', data.isImportant);
+        el.attr('data-important', data.important);
 
-        el.find('[component="post/important/on"]').toggleClass('hidden', !data.isImportant);
-        el.find('[component="post/important/off"]').toggleClass('hidden', data.isImportant);
+        el.find('[component="post/important/on"]').toggleClass('hidden', !data.important);
+        el.find('[component="post/important/off"]').toggleClass('hidden', data.important);
     }
 
     
+
+
+
 
     function togglePostBookmark(data) {
         const el = $('[data-pid="' + data.post.pid + '"] [component="post/bookmark"]').filter(function (index, el) {

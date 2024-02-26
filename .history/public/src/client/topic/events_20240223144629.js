@@ -279,6 +279,9 @@ define('forum/topic/events', [
 
     
 
+
+
+
     function togglePostBookmark(data) {
         const el = $('[data-pid="' + data.post.pid + '"] [component="post/bookmark"]').filter(function (index, el) {
             return parseInt($(el).closest('[data-pid]').attr('data-pid'), 10) === parseInt(data.post.pid, 10);

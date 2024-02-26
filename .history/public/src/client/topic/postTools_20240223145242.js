@@ -147,7 +147,7 @@ define('forum/topic/postTools', [
                     id: pid,
                 });
             });
-        }); 
+        });
 
         postContainer.on('click', '[component="post/flagUser"]', function () {
             const uid = getData($(this), 'data-uid');

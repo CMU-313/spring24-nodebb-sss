@@ -311,7 +311,7 @@ describe('Post\'s', () => {
         });
     });
 
-    describe('pinning as important', () => {
+    describe('pinning', () => {
         it('should pin a post', async () => {
             const data = await apiPosts.pin({ uid: voterUid }, { pid: postData.pid, room_id: `topic_${postData.tid}` });
             assert.equal(data.isImportant, true);

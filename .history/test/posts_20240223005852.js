@@ -311,20 +311,6 @@ describe('Post\'s', () => {
         });
     });
 
-    describe('pinning as important', () => {
-        it('should pin a post', async () => {
-            const data = await apiPosts.pin({ uid: voterUid }, { pid: postData.pid, room_id: `topic_${postData.tid}` });
-            assert.equal(data.isImportant, true);
-          
-        });
-
-        it('should unbookmark a post', async () => {
-            const data = await apiPosts.unpink({ uid: voterUid }, { pid: postData.pid, room_id: `topic_${postData.tid}` });
-            assert.equal(data.isImportant, false);
-          
-        });
-    });
-
     describe('post tools', () => {
         it('should error if data is invalid', (done) => {
             socketPosts.loadPostTools({ uid: globalModUid }, null, (err) => {

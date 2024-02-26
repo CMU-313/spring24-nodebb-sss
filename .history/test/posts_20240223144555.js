@@ -311,17 +311,19 @@ describe('Post\'s', () => {
         });
     });
 
-    describe('pinning as important', () => {
+    describe('pinning', () => {
         it('should pin a post', async () => {
             const data = await apiPosts.pin({ uid: voterUid }, { pid: postData.pid, room_id: `topic_${postData.tid}` });
             assert.equal(data.isImportant, true);
-          
+            const hasBookmarked = await posts.hasBookmarked(postData.pid, voterUid);
+            assert.equal(hasBookmarked, true);
         });
 
         it('should unbookmark a post', async () => {
             const data = await apiPosts.unpink({ uid: voterUid }, { pid: postData.pid, room_id: `topic_${postData.tid}` });
             assert.equal(data.isImportant, false);
-          
+            const hasBookmarked = await posts.hasBookmarked([postData.pid], voterUid);
+            assert.equal(hasBookmarked[0], false);
         });
     });
 
