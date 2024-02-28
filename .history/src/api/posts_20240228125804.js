@@ -3,6 +3,7 @@
 const validator = require('validator');
 const _ = require('lodash');
 
+const assert = require('assert');
 const utils = require('../utils');
 const user = require('../user');
 const posts = require('../posts');

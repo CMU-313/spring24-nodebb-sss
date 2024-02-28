@@ -163,8 +163,10 @@ describe('Post\'s', () => {
 
     describe('voting', () => {
         it('important', async () => {
-            assert.equal(await posts.is_important(postData.pid), 0);
+
+        assert.equal(await posts.is_important(postData.pid), 0);
             const result = await apiPosts.important({ uid: voterUid }, { pid: postData.pid, room_id: 'topic_1' });
+            
             assert.equal(result.important, 1);
             assert.equal(await posts.is_important(postData.pid), 1);
             await apiPosts.unimportant({ uid: voterUid }, { pid: postData.pid, room_id: 'topic_1' });

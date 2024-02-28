@@ -225,7 +225,7 @@ define('forum/topic/events', [
         el.find('[component="post/bookmark/off"]').toggleClass('hidden', data.isBookmarked);
     }
 
-    /**
+        /**
      * changeBackgroundColor
      * @brief Takes the element postEl and makes its background color gray.
      * Current issues:
@@ -243,7 +243,7 @@ define('forum/topic/events', [
         console.assert(typeof important === 'boolean', 'important should be of type boolean');
         console.assert(typeof postEl === 'object', 'postEl should be an object');
 
-        if (postEl.important) {
+        if (post.important) {
             postEl.css('background-color', '#B3CBB9');
         } else {
             // Reset background color for unimportant posts
@@ -276,6 +276,24 @@ define('forum/topic/events', [
         el.find('[component="post/important/on"]').toggleClass('hidden', !data.isImportant);
         el.find('[component="post/important/off"]').toggleClass('hidden', data.isImportant);
     }
+
+    
+
+    function togglePostBookmark(data) {
+        const el = $('[data-pid="' + data.post.pid + '"] [component="post/bookmark"]').filter(function (index, el) {
+            return parseInt($(el).closest('[data-pid]').attr('data-pid'), 10) === parseInt(data.post.pid, 10);
+        });
+        if (!el.length) {
+            return;
+        }
+
+        el.attr('data-bookmarked', data.isBookmarked);
+
+        el.find('[component="post/bookmark/on"]').toggleClass('hidden', !data.isBookmarked);
+        el.find('[component="post/bookmark/off"]').toggleClass('hidden', data.isBookmarked);
+    }
+
+
 
 
     function togglePostVote(data) {

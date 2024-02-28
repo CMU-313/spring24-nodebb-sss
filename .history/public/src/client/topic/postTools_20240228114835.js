@@ -147,7 +147,7 @@ define('forum/topic/postTools', [
                     id: pid,
                 });
             });
-        });
+        }); 
 
         postContainer.on('click', '[component="post/flagUser"]', function () {
             const uid = getData($(this), 'data-uid');
@@ -411,8 +411,7 @@ define('forum/topic/postTools', [
 
     /**
      * Toggles the important state of a post.
-     * @param {JQuery} button -
-     * The jQuery object representing the button clicked to mark a post as important or unimportant.
+     * @param {JQuery} button - The jQuery object representing the button clicked to mark a post as important or unimportant.
      * @param {number} pid - The post ID to be important or unimportant.
      * @returns {boolean} Always returns false to prevent default action for a button click.
      */

@@ -6,7 +6,7 @@ const plugins = require('../plugins');
 module.exports = function (Posts) {
     Posts.is_important = async function (pid) {
         return await Posts.getPostField(pid, 'important');
-    };
+    }
 
     Posts.bookmark = async function (pid, uid) {
         return await toggleBookmark('bookmark', pid, uid);

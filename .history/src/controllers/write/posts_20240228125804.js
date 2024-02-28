@@ -1,6 +1,5 @@
 'use strict';
 
-const assert = require('assert');
 const posts = require('../../posts');
 const privileges = require('../../privileges');
 

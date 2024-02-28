@@ -1,5 +1,6 @@
 'use strict';
 
+const assert = require('assert');
 const db = require('../database');
 const plugins = require('../plugins');
 

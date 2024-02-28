@@ -162,14 +162,16 @@ describe('Post\'s', () => {
     });
 
     describe('voting', () => {
-        it('important', async () => {
-            assert.equal(await posts.is_important(postData.pid), 0);
-            const result = await apiPosts.important({ uid: voterUid }, { pid: postData.pid, room_id: 'topic_1' });
-            assert.equal(result.important, 1);
-            assert.equal(await posts.is_important(postData.pid), 1);
-            await apiPosts.unimportant({ uid: voterUid }, { pid: postData.pid, room_id: 'topic_1' });
-            assert.equal(await posts.is_important(postData.pid), 0);
-        });
+        // it('important', async () => {
+
+        // // assert.equal(await posts.wasImportant(postData.pid), 0);
+        // //     const result = await apiPosts.important({ uid: voterUid }, { pid: postData.pid, room_id: 'topic_1' });
+            
+        // //     assert.equal(result.important, 1);
+        // //     assert.equal(await posts.wasImportant(postData.pid), 1);
+        // //     await apiPosts.unimportant({ uid: voterUid }, { pid: postData.pid, room_id: 'topic_1' });
+        // //     assert.equal(await posts.wasImportant(postData.pid), 0);
+        // });
 
         it('should fail to upvote post if group does not have upvote permission', async () => {
             await privileges.categories.rescind(['groups:posts:upvote', 'groups:posts:downvote'], cid, 'registered-users');
@@ -311,14 +313,14 @@ describe('Post\'s', () => {
         });
     });
 
-    describe('pinning as important', () => {
-        it('should pin a post', async () => {
-            const data = await apiPosts.pin({ uid: voterUid }, { pid: postData.pid, room_id: `topic_${postData.tid}` });
-            assert.equal(data.isImportant, true);
+    describe('marking as important', () => {
+        it('should mark a post as important', async () => {
+            const data = await apiPosts.important({ uid: voterUid }, { pid: postData.pid, room_id: `topic_${postData.tid}` });
+            assert.equal(data.isImportans, true);
         });
 
         it('should unbookmark a post', async () => {
-            const data = await apiPosts.unpink({ uid: voterUid }, { pid: postData.pid, room_id: `topic_${postData.tid}` });
+            const data = await apiPosts.unimportant({ uid: voterUid }, { pid: postData.pid, room_id: `topic_${postData.tid}` });
             assert.equal(data.isImportant, false);
         });
     });

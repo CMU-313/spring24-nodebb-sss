@@ -412,9 +412,11 @@ define('forum/topic/postTools', [
     /**
      * Toggles the important state of a post.
      * @param {JQuery} button -
-     * The jQuery object representing the button clicked to mark a post as important or unimportant.
-     * @param {number} pid - The post ID to be important or unimportant.
-     * @returns {boolean} Always returns false to prevent default action for a button click.
+     * Above: The jQuery object representing the button clicked to mark a post as important or unimportant.
+     * @param {number} pid -
+     * Above: The post ID to be important or unimportant.
+     * @returns {boolean}
+     * Above: Always returns false to prevent default action for a button click.
      */
     function markImportantPost(button, pid) {
         // Assert parameter types
@@ -431,8 +433,6 @@ define('forum/topic/postTools', [
         });
         return false;
     }
-
-
 
 
     function togglePostDelete(button) {

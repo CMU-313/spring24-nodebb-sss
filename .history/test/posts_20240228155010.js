@@ -162,7 +162,7 @@ describe('Post\'s', () => {
     });
 
     describe('voting', () => {
-        it('important', async () => {
+        it('important', async() => {
             assert.equal(await posts.is_important(postData.pid), 0);
             const result = await apiPosts.important({ uid: voterUid }, { pid: postData.pid, room_id: 'topic_1' });
             assert.equal(result.important, 1);
@@ -406,8 +406,7 @@ describe('Post\'s', () => {
         //                 { jar: data.jar, json: true }, (err, res, body) => {
         //                     assert.ifError(err);
         //                     assert.equal(body.posts[1].content, '[[topic:post_is_deleted]]');
-        //                     privileges.categories.give(['groups:posts:view_deleted'],
-        //                     cid, 'Global Moderators', next);
+        //                     privileges.categories.give(['groups:posts:view_deleted'], cid, 'Global Moderators', next);
         //                 });
         //             });
         //         },

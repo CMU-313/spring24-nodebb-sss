@@ -278,6 +278,28 @@ define('forum/topic/events', [
     }
 
 
+    function togglePostBookmark(data) {
+        const el = $('[data-pid="' + data.post.pid + '"] [component="post/bookmark"]').filter(function (index, el) {
+            return parseInt($(el).closest('[data-pid]').attr('data-pid'), 10) === parseInt(data.post.pid, 10);
+        });
+        if (!el.length) {
+            return;
+        }
+
+        el.attr('data-bookmarked', data.isBookmarked);
+
+        el.find('[component="post/bookmark/on"]').toggleClass('hidden', !data.isBookmarked);
+        el.find('[component="post/bookmark/off"]').toggleClass('hidden', data.isBookmarked);
+    }
+
+
+
+
+
+
+
+
+
     function togglePostVote(data) {
         const post = $('[data-pid="' + data.post.pid + '"]');
         post.find('[component="post/upvote"]').filter(function (index, el) {

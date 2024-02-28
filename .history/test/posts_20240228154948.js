@@ -162,7 +162,7 @@ describe('Post\'s', () => {
     });
 
     describe('voting', () => {
-        it('important', async () => {
+        it('important', async() => {
             assert.equal(await posts.is_important(postData.pid), 0);
             const result = await apiPosts.important({ uid: voterUid }, { pid: postData.pid, room_id: 'topic_1' });
             assert.equal(result.important, 1);
@@ -402,12 +402,10 @@ describe('Post\'s', () => {
         //         function (next) {
         //             helpers.loginUser('global mod', '123456', (err, data) => {
         //                 assert.ifError(err);
-        //                 request(`${nconf.get('url')}/api/topic/${tid}`,
-        //                 { jar: data.jar, json: true }, (err, res, body) => {
+        //                 request(`${nconf.get('url')}/api/topic/${tid}`, { jar: data.jar, json: true }, (err, res, body) => {
         //                     assert.ifError(err);
         //                     assert.equal(body.posts[1].content, '[[topic:post_is_deleted]]');
-        //                     privileges.categories.give(['groups:posts:view_deleted'],
-        //                     cid, 'Global Moderators', next);
+        //                     privileges.categories.give(['groups:posts:view_deleted'], cid, 'Global Moderators', next);
         //                 });
         //             });
         //         },

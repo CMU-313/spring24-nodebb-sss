@@ -1,7 +1,7 @@
 'use strict';
 
-const assert = require('assert');
 const posts = require('../../posts');
+const assert = require('assert');
 const privileges = require('../../privileges');
 
 const api = require('../../api');
