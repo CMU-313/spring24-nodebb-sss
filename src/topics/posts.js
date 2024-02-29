@@ -244,9 +244,10 @@ module.exports = function (Topics) {
             const upvotes = parseInt(postData.upvotes, 10) || 0;
             const downvotes = parseInt(postData.downvotes, 10) || 0;
             const votes = upvotes - downvotes;
+            const important = postData.important;
             await db.sortedSetsAdd([
                 `tid:${tid}:posts`, `tid:${tid}:posts:votes`,
-            ], [postData.timestamp, votes], postData.pid);
+            ], [important === 1 ? 0 : postData.timestamp, important === 1 ? -1 : votes], postData.pid);
         }
         await Topics.increasePostCount(tid);
         await db.sortedSetIncrBy(`tid:${tid}:posters`, 1, postData.uid);
@@ -254,7 +255,6 @@ module.exports = function (Topics) {
         await Topics.setTopicField(tid, 'postercount', posterCount);
         await Topics.updateTeaser(tid);
     };
-
     Topics.removePostFromTopic = async function (tid, postData) {
         await db.sortedSetsRemove([
             `tid:${tid}:posts`,
