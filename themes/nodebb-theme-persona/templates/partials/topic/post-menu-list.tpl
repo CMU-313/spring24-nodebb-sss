@@ -87,12 +87,14 @@
 
     {{{ if config.loggedIn }}}
     <li>
+
         <a component="post/important" role="menuitem" tabindex="-1" href="#" data-important="{posts.important}">
             <span class="menu-icon">
                 <i component="post/important/on" class="fa fa-fw fa-thumb-tack <!-- IF !posts.important -->hidden<!-- ENDIF !posts.important -->"></i>
                 <i component="post/important/off" class="fa fa-fw fa-thumb-tack fa-rotate-90 <!-- IF posts.important -->hidden<!-- ENDIF posts.important -->"></i>
             </span>
             <span class="important-text">[[topic:Important]]</span>&nbsp;
+
         </a>
     </li>
     {{{ end }}}
