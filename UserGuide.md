@@ -27,8 +27,10 @@ refresh the webpage to view the change.
 
 
 4. Link to Automated test 
-Tests are included in tests/posts.js
-
+Tests are included in tests/posts.js. The test checks if the backend is implemented correctly
+by doing the following checks: post are initially not marked as important, posts can be
+marked as important and posts can be marked as not important. These tests cover the core
+functionality for creating getter and setter functions for importance.
 
 5. Justification of sufficent test
 The test coverage is around 75%, and that sufficiently justifies the test is enough
