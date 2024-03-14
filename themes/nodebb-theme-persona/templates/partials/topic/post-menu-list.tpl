@@ -87,12 +87,21 @@
 
     {{{ if config.loggedIn }}}
     <li>
+<<<<<<< HEAD
         <a component="post/pin" role="menuitem" tabindex="-1" href="#" data-pinned="{posts.pinned}">
             <span class="menu-icon">
                 <i component="post/pin/on" class="fa fa-fw fa-thumb-tack <!-- IF !posts.pinned -->hidden<!-- ENDIF !posts.pinned -->"></i>
                 <i component="post/pin/off" class="fa fa-fw fa-thumb-tack fa-rotate-90 <!-- IF posts.pinned -->hidden<!-- ENDIF posts.pinned -->"></i>
             </span>
             <span class="pin-text">[[topic:Pin]]</span>&nbsp;
+=======
+        <a component="post/important" role="menuitem" tabindex="-1" href="#" data-important="{posts.important}">
+            <span class="menu-icon">
+                <i component="post/important/on" class="fa fa-fw fa-thumb-tack <!-- IF !posts.important -->hidden<!-- ENDIF !posts.important -->"></i>
+                <i component="post/important/off" class="fa fa-fw fa-thumb-tack fa-rotate-90 <!-- IF posts.important -->hidden<!-- ENDIF posts.important -->"></i>
+            </span>
+            <span class="important-text">[[topic:Important]]</span>&nbsp;
+>>>>>>> merging_attempt_2
         </a>
     </li>
     {{{ end }}}
