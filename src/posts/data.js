@@ -18,7 +18,7 @@ const utils_1 = __importDefault(require("../utils"));
 const intFields = [
     'uid', 'pid', 'tid', 'deleted', 'timestamp',
     'upvotes', 'downvotes', 'deleterUid', 'edited',
-    'replies', 'bookmarks', 'important',
+    'replies', 'bookmarks',
 ];
 function modifyPost(post, fields) {
     if (post) {
