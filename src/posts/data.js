@@ -38,6 +38,7 @@ function modifyPost(post, fields) {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
             post.editedISO = (post.edited !== 0 ? utils_1.default.toISOString(post.edited) : '');
         }
+        post.isEnglish = post.isEnglish == "true";
     }
 }
 module.exports = function (Posts) {
