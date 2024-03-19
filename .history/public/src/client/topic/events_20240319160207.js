@@ -40,7 +40,7 @@ define('forum/topic/events', [
 
         'posts.bookmark': togglePostBookmark,
         'posts.unbookmark': togglePostBookmark,
-
+    
         'posts.important': togglePostImportant,
         'posts.unimportant': togglePostImportant,
 

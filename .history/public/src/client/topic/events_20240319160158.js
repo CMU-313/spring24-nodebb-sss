@@ -40,7 +40,7 @@ define('forum/topic/events', [
 
         'posts.bookmark': togglePostBookmark,
         'posts.unbookmark': togglePostBookmark,
-
+    
         'posts.important': togglePostImportant,
         'posts.unimportant': togglePostImportant,
 
@@ -261,6 +261,7 @@ define('forum/topic/events', [
         // Assert that data.isPinned is a boolean
         assert(typeof data.isImportant === 'boolean', 'Expected data.important to be a boolean');
         const el = $('[data-pid="' + data.post.pid + '"] [component="post/important"]').filter(function (index, el) {
+
             return parseInt($(el).closest('[data-pid]').attr('data-pid'), 10) === parseInt(data.post.pid, 10);
         });
         if (!el.length) {

@@ -161,7 +161,11 @@ TopicObject:
         bookmark:
           nullable: true
           type: number
+<<<<<<< HEAD
+        pin:
+=======
         important:
+>>>>>>> merging_attempt_2
           type: boolean
         unreplied:
           type: boolean

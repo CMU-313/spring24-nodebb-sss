@@ -341,6 +341,10 @@ define('forum/topic/threadTools', [
             return;
         }
 
+        /** New Call to changeBackgroundColor when the pinState is set */
+        // const postEl = components.get('topic/title'); // will choose only the title
+        const postEl = components.get('topic');
+        changeBackgroundColor(postEl, data.pinned);
 
         components.get('topic/pin').toggleClass('hidden', data.pinned).parent().attr('hidden', data.pinned ? '' : null);
         components.get('topic/unpin').toggleClass('hidden', !data.pinned).parent().attr('hidden', !data.pinned ? '' : null);

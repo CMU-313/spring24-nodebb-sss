@@ -40,9 +40,12 @@ define('forum/topic/events', [
 
         'posts.bookmark': togglePostBookmark,
         'posts.unbookmark': togglePostBookmark,
-
+      
         'posts.important': togglePostImportant,
         'posts.unimportant': togglePostImportant,
+
+        'posts.pin': togglePostPin,
+        'posts.unpin': togglePostPin,
 
         'posts.upvote': togglePostVote,
         'posts.downvote': togglePostVote,
@@ -261,12 +264,20 @@ define('forum/topic/events', [
         // Assert that data.isPinned is a boolean
         assert(typeof data.isImportant === 'boolean', 'Expected data.important to be a boolean');
         const el = $('[data-pid="' + data.post.pid + '"] [component="post/important"]').filter(function (index, el) {
+
             return parseInt($(el).closest('[data-pid]').attr('data-pid'), 10) === parseInt(data.post.pid, 10);
         });
         if (!el.length) {
             return;
         }
 
+<<<<<<< HEAD
+        el.attr('data-pinned', data.isPinned);
+
+        el.find('[component="post/pin/on"]').toggleClass('hidden', !data.isPinned);
+        el.find('[component="post/pin/off"]').toggleClass('hidden', data.isPinned);
+    }
+=======
         const postEl = components.get('post');
         changeBackgroundColor(postEl, data.post.isImportant);
 
@@ -277,6 +288,7 @@ define('forum/topic/events', [
     }
 
 
+>>>>>>> merging_attempt_2
     function togglePostVote(data) {
         const post = $('[data-pid="' + data.post.pid + '"]');
         post.find('[component="post/upvote"]').filter(function (index, el) {

@@ -3,6 +3,7 @@
 define('topicList', [
     'forum/infinitescroll',
     'handleBack',
+    'handleBackPin',
     'topicSelect',
     'categoryFilter',
     'forum/category/tools',

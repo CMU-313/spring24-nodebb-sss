@@ -313,12 +313,12 @@ describe('Post\'s', () => {
 
     describe('pinning as important', () => {
         it('should pin a post', async () => {
-            const data = await apiPosts.important({ uid: voterUid }, { pid: postData.pid, room_id: `topic_${postData.tid}` });
+            const data = await apiPosts.pin({ uid: voterUid }, { pid: postData.pid, room_id: `topic_${postData.tid}` });
             assert.equal(data.isImportant, true);
         });
 
         it('should unbookmark a post', async () => {
-            const data = await apiPosts.unimportant({ uid: voterUid }, { pid: postData.pid, room_id: `topic_${postData.tid}` });
+            const data = await apiPosts.unpink({ uid: voterUid }, { pid: postData.pid, room_id: `topic_${postData.tid}` });
             assert.equal(data.isImportant, false);
         });
     });

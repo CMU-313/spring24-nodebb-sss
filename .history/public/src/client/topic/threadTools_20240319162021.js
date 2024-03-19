@@ -10,12 +10,13 @@ define('forum/topic/threadTools', [
     'components',
     'translator',
     'handleBack',
+    'handleBackPin',
     'forum/topic/posts',
     'api',
     'hooks',
     'bootbox',
     'alerts',
-], function (components, translator, handleBack, posts, api, hooks, bootbox, alerts) {
+], function (components, translator, handleBack, handleBackPin, posts, api, hooks, bootbox, alerts) {
     const ThreadTools = {};
 
     ThreadTools.init = function (tid, topicContainer) {
@@ -335,12 +336,43 @@ define('forum/topic/threadTools', [
     };
 
 
+
+    /**
+     * changeBackgroundColor
+     * @brief Takes the element postEl and makes its background color gray.
+     * Current issues:
+     * (1) Makes the entire thread have the background color, not just the top
+     * message. I think this is fine though since the eventual goal is to give
+     * specific posts the pinned characteristic.
+     * (2) Changes are temporary. Refreshing the page, exiting and coming back,
+     * all remove the changes. Maybe moving this function call somewhere else?
+     * @param {*} postEl
+     * @param {*} pinned
+     */
+
+    function changeBackgroundColor(postEl, pinned) {
+        /** Type Sanity Checks  */
+        console.assert(typeof pinned === 'boolean', 'pinned should be of type boolean');
+        console.assert(typeof postEl === 'object', 'postEl should be an object');
+
+        if (pinned) {
+            postEl.css('background-color', '#B3CBB9');
+        } else {
+            // Reset background color for unpinned posts
+            postEl.css('background-color', '');
+        }
+    }
+
     ThreadTools.setPinnedState = function (data) {
         const threadEl = components.get('topic');
         if (parseInt(data.tid, 10) !== parseInt(threadEl.attr('data-tid'), 10)) {
             return;
         }
 
+        /** New Call to changeBackgroundColor when the pinState is set */
+        // const postEl = components.get('topic/title'); // will choose only the title
+        const postEl = components.get('topic');
+        changeBackgroundColor(postEl, data.pinned);
 
         components.get('topic/pin').toggleClass('hidden', data.pinned).parent().attr('hidden', data.pinned ? '' : null);
         components.get('topic/unpin').toggleClass('hidden', !data.pinned).parent().attr('hidden', !data.pinned ? '' : null);

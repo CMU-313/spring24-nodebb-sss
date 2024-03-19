@@ -65,7 +65,12 @@ define('forum/topic/postTools', [
     PostTools.toggle = function (pid, isDeleted) {
         const postEl = components.get('post', 'pid', pid);
 
+<<<<<<< HEAD
+        postEl.find('[component="post/quote"], [component="post/bookmark"], [component="post/pin"], [component="post/reply"], [component="post/flag"], [component="user/chat"]')
+            .toggleClass('hidden', isDeleted);
+=======
         postEl.find('[component="post/quote"], [component="post/bookmark"], [component="post/important"], [component="post/reply"], [component="post/flag"], [component="user/chat"]').toggleClass('hidden', isDeleted);
+>>>>>>> merging_attempt_2
 
         postEl.find('[component="post/delete"]').toggleClass('hidden', isDeleted).parent().attr('hidden', isDeleted ? '' : null);
         postEl.find('[component="post/restore"]').toggleClass('hidden', !isDeleted).parent().attr('hidden', !isDeleted ? '' : null);
@@ -114,6 +119,16 @@ define('forum/topic/postTools', [
 
         postContainer.on('click', '[component="post/bookmark"]', function () {
             return bookmarkPost($(this), getData($(this), 'data-pid'));
+        });
+
+        // Assert that postContainer is a jQuery object
+        assert(postContainer instanceof jQuery, 'postContainer must be a jQuery object');
+        postContainer.on('click', '[component="post/pin"]', function () {
+            // Assuming getData is defined elsewhere and retrieves a data attribute value from a jQuery element
+            const pid = getData($(this), 'data-pid');
+            // Assert that pid is a string or number, if getData's behavior is well-defined and consistent
+            assert(typeof pid === 'number', 'Expected data-pid to be a number');
+            return pinPost($(this), getData($(this), 'data-pid'));
         });
 
         postContainer.on('click', '[component="post/upvote"]', function () {
@@ -431,7 +446,11 @@ define('forum/topic/postTools', [
         });
         return false;
     }
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> merging_attempt_2
     function togglePostDelete(button) {
         const pid = getData(button, 'data-pid');
         const postEl = components.get('post', 'pid', pid);

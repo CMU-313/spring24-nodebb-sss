@@ -116,6 +116,16 @@ define('forum/topic/postTools', [
             return bookmarkPost($(this), getData($(this), 'data-pid'));
         });
 
+        // Assert that postContainer is a jQuery object
+        assert(postContainer instanceof jQuery, 'postContainer must be a jQuery object');
+        postContainer.on('click', '[component="post/pin"]', function () {
+            // Assuming getData is defined elsewhere and retrieves a data attribute value from a jQuery element
+            const pid = getData($(this), 'data-pid');
+            // Assert that pid is a string or number, if getData's behavior is well-defined and consistent
+            assert(typeof pid === 'number', 'Expected data-pid to be a number');
+            return pinPost($(this), getData($(this), 'data-pid'));
+        });
+
         postContainer.on('click', '[component="post/upvote"]', function () {
             return votes.toggleVote($(this), '.upvoted', 1);
         });
@@ -431,7 +441,7 @@ define('forum/topic/postTools', [
         });
         return false;
     }
-
+  
     function togglePostDelete(button) {
         const pid = getData(button, 'data-pid');
         const postEl = components.get('post', 'pid', pid);
