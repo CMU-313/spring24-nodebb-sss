@@ -1,0 +1,33 @@
+[ignore]
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+
+module.system.node.resolve_dirname=node_modules
+module.name_mapper='\\(.*\\)\\(.*\\)$' -> '<PROJECT_ROOT>/\\1\\2'
+
+suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
+
+module.file_ext=.js
+module.file_ext=.jsx
+module.file_ext=.json
+
+module.file_ext=.css
+module.file_ext=.scss
+module.file_ext=.less
+
+module.file_ext=.jpg
+module.file_ext=.jpeg
+module.file_ext=.png
+module.file_ext=.gif
+module.file_ext=.svg
+
+module.file_ext=.graphql
+module.file_ext=.gql
+
+[strict]
