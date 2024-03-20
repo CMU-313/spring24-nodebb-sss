@@ -163,7 +163,7 @@ describe('Post\'s', () => {
 
     describe('voting', () => {
         // it('important', async () => {
-        //     assert.equal(await posts.is_important(postData.pid), null);
+        //     assert.equal(await posts.is_important(postData.pid), 0);
         //     const result = await apiPosts.important({ uid: voterUid }, { pid: postData.pid, room_id: 'topic_1' });
         //     assert.equal(result.important, 1);
         //     assert.equal(await posts.is_important(postData.pid), 1);
@@ -313,12 +313,12 @@ describe('Post\'s', () => {
 
     // describe('pinning as important', () => {
     //     it('should pin a post', async () => {
-    //         const data = await apiPosts.important({ uid: voterUid }, { pid: postData.pid, room_id: `topic_${postData.tid}` });
+    //         const data = await apiPosts.Important({ uid: voterUid }, { pid: postData.pid, room_id: `topic_${postData.tid}` });
     //         assert.equal(data.isImportant, true);
     //     });
 
-    //     it('should unbookmark a post', async () => {
-    //         const data = await apiPosts.unimportant({ uid: voterUid }, { pid: postData.pid, room_id: `topic_${postData.tid}` });
+    //     it('should unpin a post', async () => {
+    //         const data = await apiPosts.unImportant({ uid: voterUid }, { pid: postData.pid, room_id: `topic_${postData.tid}` });
     //         assert.equal(data.isImportant, false);
     //     });
     // });
