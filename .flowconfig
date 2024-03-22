@@ -5,6 +5,7 @@
 [libs]
 
 [lints]
+sketchy-number=on
 
 [options]
 
