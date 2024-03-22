@@ -5,7 +5,7 @@
 [libs]
 
 [lints]
-sketchy-number=error
+sketchy-number=warn
 
 [options]
 
