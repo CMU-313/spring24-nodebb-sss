@@ -1,0 +1,13 @@
+[ignore]
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+
+module.name_mapper='^react$' -> 'flow-runtime-react/lib/React.js'
+
+[strict]
