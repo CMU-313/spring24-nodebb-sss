@@ -1,12 +1,16 @@
 [ignore]
+./*
+!./src/.*
+!./public/.*
 
 [include]
 
 [libs]
 
 [lints]
-sketchy-number=warn
+all=error
 
 [options]
+all=true
 
 [strict]
