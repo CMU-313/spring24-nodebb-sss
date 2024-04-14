@@ -161,6 +161,8 @@ TopicObject:
         bookmark:
           nullable: true
           type: number
+        important:
+          type: boolean
         unreplied:
           type: boolean
         icons:
